@@ -1,16 +1,38 @@
+import java.util.ArrayList;
+
 public class Main {
+    private static ArrayList<PlayerCharacter> party;
+
     public static void main(String[] args){
-        Mage myMage = new Mage("Francisco");
-        //System.out.println(myMage.agility);
-        myMage.showStats();
+        Party myParty = new Party();
+        myParty.addTank(new Fighter("Sentri"));
+        myParty.addRange(new Mage("Jaana"));
+        myParty.addHealer(new Paladin("Dupre"));
 
-        Mage myOtherMage = new Mage("Jaana");
-        myOtherMage.showStats();
+        PlayerCharacter p1 = new Mage("Merlin");
 
-        Fighter myFighter = new Fighter("Dupre");
-        myFighter.showStats();
+        System.out.println("There are now " + p1.numPC() + " players in the game");
 
-        Fighter myOtherFighter = new Fighter("Sentri");
-        myOtherFighter.showStats();
+        PlayerCharacter p2 = new Paladin("Francisco");
+
+        System.out.println("There are now " + p1.numPC() + " players in the game");
+        System.out.println("There are now " + p2.numPC() + " players in the game");
+
+        System.out.println("There are now " + PlayerCharacter.numPC() + " players in the game");
+
+        // At start of game
+        System.out.println("START OF GAME:\n");
+        myParty.showParty();
+
+        int turns = 20;
+        for (int i = 1; i <= turns; i++){
+            for (PlayerCharacter pc : myParty.getParty()){
+                if (pc != null) pc.addXP((int) (Math.random() * 1000));
+            }
+        }
+
+        // At end of game
+        System.out.println("END OF GAME:\n");
+        myParty.showParty();
     }
 }
